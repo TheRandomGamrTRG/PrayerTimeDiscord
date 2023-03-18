@@ -1,0 +1,3 @@
+{
+	"token": "Yout-Bot-Token-Goes-Here-Inside-The-Quotation-Marks"
+}
