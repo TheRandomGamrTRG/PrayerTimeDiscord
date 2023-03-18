@@ -1,0 +1,15 @@
+{
+  "name": "prayertimediscord",
+  "version": "0.0.3",
+  "description": "Discord Bot that reminds the start and end of Prayer times.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IbrahimKhalid",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "node-cron": "^3.0.2"
+  }
+}
