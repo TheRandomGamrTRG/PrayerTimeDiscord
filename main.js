@@ -23,13 +23,13 @@ client.once(Events.ClientReady, c => {
 // Log in to Discord with your client's token
 client.login(token);
 
-// Read the contents of the Fajr Schedule File
-fs.readFile("./Schedule_Files/ScheduleFajr.txt", "utf-8", (err, data) => {
+// Read the contents of the Fajr Start Schedule File
+fs.readFile("./Schedules/1-Fajr_1-Start.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
- // Schedule the message for Fajr
+ // Schedule the message for Fajr Start
   const scheduleEntries = data.split("\n");
   scheduleEntries.forEach(entry => {
     const [date, time] = entry.split(" ");
@@ -39,20 +39,19 @@ fs.readFile("./Schedule_Files/ScheduleFajr.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Fajr* time has started.");
-      console.log(`${currentTime}: Fajr announced.`);
+      channel.send(":green_square: *Fajr* time has started.");
+      console.log(`${currentTime}: 🟩 Fajr Start announced.`);
     });
   });
 });
 
-
-// Read the contents of the Sunrise Schedule File
-fs.readFile("./Schedule_Files/ScheduleSunrise.txt", "utf-8", (err, data) => {
+// Read the contents of the Fajr Reminder Schedule File
+fs.readFile("./Schedules/1-Fajr_2-Reminder.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
- // Schedule the message for Sunrise
+ // Schedule the message for Fajr Reminder
   const scheduleEntries = data.split("\n");
   scheduleEntries.forEach(entry => {
     const [date, time] = entry.split(" ");
@@ -62,15 +61,37 @@ fs.readFile("./Schedule_Files/ScheduleSunrise.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Fajr* time has ended.");
-      console.log(`${currentTime}: Sunrise announced.`);
+      channel.send(":yellow_square: *Fajr* time has nearly ended.");
+      console.log(`${currentTime}: 🟨 Fajr Reminder announced.`);
+    });
+  });
+});
+
+// Read the contents of the Fajr End Schedule File
+fs.readFile("./Schedules/1-Fajr_3-End.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+ // Schedule the message for Fajr End
+  const scheduleEntries = data.split("\n");
+  scheduleEntries.forEach(entry => {
+    const [date, time] = entry.split(" ");
+    const [hours, minutes] = time.split(":");
+    const [month, day] = date.split("/");
+    const schedule = `${minutes} ${hours} ${day} ${month} *`;
+    cron.schedule(schedule, () => {
+      const currentTime = new Date();
+      const channel = client.channels.cache.get("1073118217192620052");
+      channel.send(":red_square: *Fajr* time has ended.");
+      console.log(`${currentTime}: 🟥 Fajr End announced.`);
     });
   });
 });
 
 
-// Read the contents of the Zuhr Schedule File
-fs.readFile("./Schedule_Files/ScheduleZuhr.txt", "utf-8", (err, data) => {
+// Read the contents of the Zuhr Start Schedule File
+fs.readFile("./Schedules/2-Zuhr_1-Start.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -85,20 +106,19 @@ fs.readFile("./Schedule_Files/ScheduleZuhr.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Zuhr* time has started.");
-      console.log(`${currentTime}: Zuhr announced.`);
+      channel.send(":green_square: *Zuhr* time has started.");
+      console.log(`${currentTime}: 🟩 Zuhr Start announced.`);
     });
   });
 });
 
-
-// Read the contents of the Asr Schedule File
-fs.readFile("./Schedule_Files/ScheduleAsr.txt", "utf-8", (err, data) => {
+// Read the contents of the Zuhr Reminder Schedule File
+fs.readFile("./Schedules/2-Zuhr_2-Reminder.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
- // Schedule the message for Asr
+ // Schedule the message for Zuhr Reminder
   const scheduleEntries = data.split("\n");
   scheduleEntries.forEach(entry => {
     const [date, time] = entry.split(" ");
@@ -108,20 +128,20 @@ fs.readFile("./Schedule_Files/ScheduleAsr.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Asr* time has started.");
-      console.log(`${currentTime}: Asr announced.`);
+      channel.send(":yellow_square: *Zuhr* has nearly ended.");
+      console.log(`${currentTime}: 🟨 Zuhr Reminder announced.`);
     });
   });
 });
 
 
-// Read the contents of the Maghrib Schedule File
-fs.readFile("./Schedule_Files/ScheduleMaghrib.txt", "utf-8", (err, data) => {
+// Read the contents of the Asr Start Schedule File
+fs.readFile("./Schedules/3-Asr_1-Start.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
- // Schedule the message for Maghrib
+ // Schedule the message for Asr Start
   const scheduleEntries = data.split("\n");
   scheduleEntries.forEach(entry => {
     const [date, time] = entry.split(" ");
@@ -131,15 +151,82 @@ fs.readFile("./Schedule_Files/ScheduleMaghrib.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Maghrib* time has started.");
-      console.log(`${currentTime}: Maghrib announced.`);
+      channel.send(":green_square: *Asr* time has started.");
+      console.log(`${currentTime}: 🟩 Asr Start announced.`);
+    });
+  });
+});
+
+// Read the contents of the Asr Reminder Schedule File
+fs.readFile("./Schedules/3-Asr_2-Reminder.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+ // Schedule the message for Asr Reminder
+  const scheduleEntries = data.split("\n");
+  scheduleEntries.forEach(entry => {
+    const [date, time] = entry.split(" ");
+    const [hours, minutes] = time.split(":");
+    const [month, day] = date.split("/");
+    const schedule = `${minutes} ${hours} ${day} ${month} *`;
+    cron.schedule(schedule, () => {
+      const currentTime = new Date();
+      const channel = client.channels.cache.get("1073118217192620052");
+      channel.send(":yellow_square: *Asr* time has nearly ended.");
+      console.log(`${currentTime}: 🟨 Asr Reminder announced.`);
     });
   });
 });
 
 
-// Read the contents of the Isha Schedule File
-fs.readFile("./Schedule_Files/ScheduleIsha.txt", "utf-8", (err, data) => {
+// Read the contents of the Maghrib Start Schedule File
+fs.readFile("./Schedules/4-Maghrib_1-Start.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+ // Schedule the message for Maghrib Start
+  const scheduleEntries = data.split("\n");
+  scheduleEntries.forEach(entry => {
+    const [date, time] = entry.split(" ");
+    const [hours, minutes] = time.split(":");
+    const [month, day] = date.split("/");
+    const schedule = `${minutes} ${hours} ${day} ${month} *`;
+    cron.schedule(schedule, () => {
+      const currentTime = new Date();
+      const channel = client.channels.cache.get("1073118217192620052");
+      channel.send(":green_square: *Maghrib* time has started.");
+      console.log(`${currentTime}: 🟩 Maghrib announced.`);
+    });
+  });
+});
+
+// Read the contents of the Maghrib Reminder Schedule File
+fs.readFile("./Schedules/4-Maghrib_2-Reminder.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+ // Schedule the message for Maghrib Reminder
+  const scheduleEntries = data.split("\n");
+  scheduleEntries.forEach(entry => {
+    const [date, time] = entry.split(" ");
+    const [hours, minutes] = time.split(":");
+    const [month, day] = date.split("/");
+    const schedule = `${minutes} ${hours} ${day} ${month} *`;
+    cron.schedule(schedule, () => {
+      const currentTime = new Date();
+      const channel = client.channels.cache.get("1073118217192620052");
+      channel.send(":yellow_square: *Maghrib* time has nearly ended.");
+      console.log(`${currentTime}: 🟨 Maghrib Reminder announced.`);
+    });
+  });
+});
+
+
+// Read the contents of the Isha Start Schedule File
+fs.readFile("./Schedules/5-Isha_1-Start.txt", "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -154,77 +241,8 @@ fs.readFile("./Schedule_Files/ScheduleIsha.txt", "utf-8", (err, data) => {
     cron.schedule(schedule, () => {
       const currentTime = new Date();
       const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Isha* time has started.");
-      console.log(`${currentTime}: Isha announced.`);
-    });
-  });
-});
-
-
-// Read the contents of the Midnight Schedule File
-fs.readFile("./Schedule_Files/ScheduleMidnight.txt", "utf-8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
- // Schedule the message for Midnight
-  const scheduleEntries = data.split("\n");
-  scheduleEntries.forEach(entry => {
-    const [date, time] = entry.split(" ");
-    const [hours, minutes] = time.split(":");
-    const [month, day] = date.split("/");
-    const schedule = `${minutes} ${hours} ${day} ${month} *`;
-    cron.schedule(schedule, () => {
-      const currentTime = new Date();
-      const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Isha* time has ended.");
-      console.log(`${currentTime}: Midnight announced.`);
-    });
-  });
-});
-
-
-// Read the contents of the Suhoor Schedule File
-fs.readFile("./Schedule_Files/ScheduleSuhoor23.txt", "utf-8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
- // Schedule the message for Suhoor
-  const scheduleEntries = data.split("\n");
-  scheduleEntries.forEach(entry => {
-    const [date, time] = entry.split(" ");
-    const [hours, minutes] = time.split(":");
-    const [month, day] = date.split("/");
-    const schedule = `${minutes} ${hours} ${day} ${month} *`;
-    cron.schedule(schedule, () => {
-      const currentTime = new Date();
-      const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Sehri* time has ended. <@&1086721651204423710>");
-      console.log(`${currentTime}: Suhoor announced.`);
-    });
-  });
-});
-
-
-// Read the contents of the Iftaar Schedule File
-fs.readFile("./Schedule_Files/ScheduleIftaar23.txt", "utf-8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
- // Schedule the message for Iftaar
-  const scheduleEntries = data.split("\n");
-  scheduleEntries.forEach(entry => {
-    const [date, time] = entry.split(" ");
-    const [hours, minutes] = time.split(":");
-    const [month, day] = date.split("/");
-    const schedule = `${minutes} ${hours} ${day} ${month} *`;
-    cron.schedule(schedule, () => {
-      const currentTime = new Date();
-      const channel = client.channels.cache.get("1073118217192620052");
-      channel.send("*Iftaari* time has started. <@&1086721651204423710>");
-      console.log(`${currentTime}: Suhoor announced.`);
+      channel.send(":green_square: *Isha* time has started.");
+      console.log(`${currentTime}: 🟩 Isha announced.`);
     });
   });
 });
